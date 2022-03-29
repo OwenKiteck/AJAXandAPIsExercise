@@ -6,15 +6,11 @@ const p1 = document.createElement('p');
 const p2 = document.createElement('p');
 first.append(p1, p2);
 
-const string = `{"id":18,"type":"programming","setup":"Why did the programmer quit his job?","punchline":"Because he didn't get arrays."}`;
-const jokeJS1 = JSON.parse(string);
+const jokeJS1 = JSON.parse(`{"id":18,"type":"programming","setup":"Why did the programmer quit his job?","punchline":"Because he didn't get arrays."}`);
 console.log(jokeJS1);
 
-async function example1() {
-    p1.innerText = await jokeJS1.setup;
-    p2.innerText = await jokeJS1.punchline;
-}
-example1();
+p1.innerText = jokeJS1.setup;
+p2.innerText = jokeJS1.punchline;
 
 
 // 2
@@ -23,7 +19,7 @@ const p3 = document.createElement('p');
 const p4 = document.createElement('p');
 second.append(p3, p4);
 
-const friendsJS2 = axios.get(`https://friends-quotes-api.herokuapp.com/quotes/random`)
+axios.get(`https://friends-quotes-api.herokuapp.com/quotes/random`)
 .then(quote => {
     const friendsJS2 = quote.data;
     console.log(friendsJS2);
@@ -59,8 +55,16 @@ const fourth = document.querySelector('#fourth');
 const p7 = document.createElement('p');
 fourth.append(p7);
 
-// async function example4(){
-//     const show = await axios.get(`https://api.tvmaze.com/shows/:id/episodebynumber?season=:season&number=:number`);
-//     console.log(show.data);
-// }
-// example4();
+async function example4(){
+    try {
+        const show = await axios.get(`https://api.tvmaze.com/shows/38963/episodebynumber?season=2&number=8`);
+        console.log(show);
+        console.log(show.data.name);
+        p7.innerText = show.data.name
+    } catch (err) {
+        console.log(err);
+        p7.innerText = err
+
+    }
+}
+example4();
